@@ -24,7 +24,7 @@ ggplot(data=V_vs_T,
 # Challenge 2 
 # Use data.txt to generate two figures that summarize the data 
   # Load data.txt to be read by ggplot
-obs <- read.table("data.txt", sep = ",", header = TRUE, stringsAsFactors = FALSE)
+obs <- read.table("data.txt", sep = ",", header = TRUE, stringsAsFactors = TRUE)
 
   #call ggplot and cowplot 
 library(ggplot2)
@@ -40,7 +40,7 @@ mean_west <- mean(obs[3001:4000, 2])
 mean_obs <- data.frame(region=c("north", "east", "south","west"),
            mean=c(mean_north, mean_east, mean_south, mean_west))
 
-plot1 <- ggplot(data = mean_obs, aes(x = region)) +
+plot1 <- ggplot(data = mean_obs, aes(x = region, fill = as.factor(mean))) +
   geom_bar() +
   theme_bw() +
   xlab("Region") +
@@ -55,10 +55,11 @@ plot2 <- ggplot(data = obs,
   theme_classic()
   
 # put sublots together in a variable "Fig1"
-Fig1 <- plot_grid(plot1, plot2,
-                  labels = c("a", "b"),
-                  ncol = 2,
-                  nrow = 1)
+plot_grid(plot1, plot2,
+          labels = c("a", "b"),
+          rel_widths = c(1, 1),
+          ncol = 2,
+          nrow = 1)
 
 # Do the bar and scatter plots tell you different stories? Why? 
   # Normally scatter plots involve more incremental data, which differs from 
