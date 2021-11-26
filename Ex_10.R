@@ -7,4 +7,11 @@ V_vs_T<-read.csv("Lab_4.2 copy.csv", header = TRUE, stringsAsFactors = FALSE)
 
 library(ggplot2)
 
+ggplot(data=V_vs_T, 
+       aes(x = X_Axis, y = Time)) +
+  geom_point() +
+  xlab("ln(V/Vo)") +
+  ylab("Time (s)") +
+  stat_smooth(method="lm") +
+  theme_classic()
 
